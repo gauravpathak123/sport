@@ -1,5 +1,5 @@
 @include('header')
-@section('bodyContent')
+
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
     <head>
@@ -36,13 +36,15 @@
 
         <section class="section">
             <div class="container">
-              <?php //if(!isset($_SESSION['Hash3'])){ ?>
+              <?php if(Auth::guest()){ ?>
                 <div id="cta">
                     <a data-toggle="modal" data-target="#login" class="btn btn-primary rounded">
                       LOGIN
                       </a>
+
                 </div>
-                <?php// } ?>
+                <?php }?>
+            
                 <div class="section-title text-center">
                     <h5>Just play.</h5>
                     <h3>Have fun. Enjoy the game.</h3>
@@ -50,38 +52,46 @@
                 </div><!-- end title -->
 
                 <div class="row-fluid service-list">
-                    <div class="col-md-4 col-sm-6" onclick="getdata(4)" data-toggle="modal" data-target="#rules">
-                        <div class="serviceBox">
-                            <div class="service-icon withborder color1 hovicon effect-1 sub-a">
-                                <img src="{!!  URL::to('images/icons/icon_01.png') !!}" alt="">
-                            </div>
-                            <div class="service-content">
-                                <h3>Football</h3>
-                                <p>
-                                  In football, you won’t go far, unless you know where the goalposts are.
-                                </p>
+
+
+                    <form action="#" method="POST">
+                        <input type="hidden" name="e_id" id="e_id" value="1"> 
+                        <div class="col-md-4 col-sm-6" data-toggle="modal" data-target="#rules">
+                            <div class="serviceBox">
+                                <div class="service-icon withborder color1 hovicon effect-1 sub-a">
+                                    <img src="{!!  URL::to('images/icons/icon_01.png') !!}" alt="">
+                                </div>
+                                <div class="service-content">
+                                    <h3>Football</h3>
+                                    <p>
+                                      In football, you won’t go far, unless you know where the goalposts are.
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div><!-- end col -->
+                    </form><!-- end col -->
 
-                    <div class="col-md-4 col-sm-6" onclick="getdata()" data-toggle="modal" data-target="#rules">
-                        <div class="serviceBox">
-                            <div class="service-icon withborder color2 hovicon effect-1 sub-a">
-                                <img src="{!!  URL::to('images/icons/icon_02.png') !!}" alt="">
+                    <form action="#" method="POST">
+                        <input type="hidden" name="e_id" id="e_id" value="2"> 
+                        <div class="col-md-4 col-sm-6" data-toggle="modal" data-target="#rules">
+                            <div class="serviceBox">
+                                <div class="service-icon withborder color2 hovicon effect-1 sub-a">
+                                    <img src="{!!  URL::to('images/icons/icon_02.png') !!}" alt="">
+                                </div>
+                                <div class="service-content">
+                                    <h3>Cricket</h3>
+                                    <p>
+                                        You can cut the tension with a cricket stump.
+                                    </p>
+                                </div>
                             </div>
-                            <div class="service-content">
-                                <h3>Cricket</h3>
-                                <p>
-                                    You can cut the tension with a cricket stump.
-                                </p>
-                            </div>
-                        </div>
-                    </div><!-- end col -->
+                        </div><!-- end col -->
+                    </form>
 
-                    <div class="col-md-4 col-sm-6" onclick="getdata(7)" data-toggle="modal" data-target="#rules">
+                    <div class="col-md-4 col-sm-6" data-toggle="modal" data-target="#rules">
                         <div class="serviceBox">
                             <div class="service-icon withborder color3 hovicon effect-1 sub-a">
-                                <img src="images/icons/icon_03.png" alt="">
+                                <img src="{!!  URL::to('images/icons/icon_03.png') !!}" alt="">
                             </div>
                             <div class="service-content">
                                 <h3>Volleyball</h3>
@@ -92,10 +102,10 @@
                         </div>
                     </div><!-- end col -->
 
-                    <div class="col-md-4 col-sm-6" onclick="getdata(2)" data-toggle="modal" data-target="#rules">
+                    <div class="col-md-4 col-sm-6" data-toggle="modal" data-target="#rules">
                         <div class="serviceBox">
                             <div class="service-icon withborder color4 hovicon effect-1 sub-a">
-                                <img src="images/icons/icon_04.png" alt="">
+                                <img src="{!!  URL::to('images/icons/icon_04.png') !!}" alt="">
                             </div>
                             <div class="service-content">
                                 <h3>Basketball</h3>
@@ -106,10 +116,10 @@
                         </div>
                     </div><!-- end col -->
 
-                    <div class="col-md-4 col-sm-6" onclick="getdata(5)" data-toggle="modal" data-target="#rules">
+                    <div class="col-md-4 col-sm-6" data-toggle="modal" data-target="#rules">
                         <div class="serviceBox">
                             <div class="service-icon withborder color5 hovicon effect-1 sub-a">
-                                <img src="images/icons/icon_05.png" alt="">
+                                <img src="{!!  URL::to('images/icons/icon_05.png') !!}" alt="">
                             </div>
                             <div class="service-content">
                                 <h3>Badminton</h3>
@@ -120,10 +130,10 @@
                         </div>
                     </div><!-- end col -->
 
-                    <div class="col-md-4 col-sm-6" onclick="getdata(3)" data-toggle="modal" data-target="#rules">
+                    <div class="col-md-4 col-sm-6" data-toggle="modal" data-target="#rules">
                         <div class="serviceBox">
                             <div class="service-icon withborder color6 hovicon effect-1 sub-a">
-                                <img src="images/icons/icon_06.png" alt="">
+                                <img src="{!!  URL::to('images/icons/icon_06.png') !!}" alt="">
                             </div>
                             <div class="service-content">
                                 <h3>Lawn Tennis</h3>
@@ -136,7 +146,7 @@
                   <div class="col-md-4 col-sm-6">
                         <div class="serviceBox">
                             <div class="service-icon withborder color7 hovicon effect-1 sub-a">
-                                <img src="images/icons/icon_07.png" alt="">
+                                <img src="{!!  URL::to('images/icons/icon_07.png') !!}" alt="">
                             </div>
                             <div class="service-content">
                                 <h3>Table Tennis</h3>
@@ -146,10 +156,10 @@
                             </div>
                         </div>
                     </div>
-                  <div class="col-md-4 col-sm-6" onclick="getdata(1)" data-toggle="modal" data-target="#rules">
+                  <div class="col-md-4 col-sm-6" data-toggle="modal" data-target="#rules">
                         <div class="serviceBox">
                             <div class="service-icon withborder color8 hovicon effect-1 sub-a">
-                                <img src="images/icons/icon_08.png" alt="">
+                                <img src="{!!  URL::to('images/icons/icon_08.png') !!}" alt="">
                             </div>
                             <div class="service-content">
                                 <h3>Pool</h3>
@@ -159,10 +169,10 @@
                             </div>
                         </div>
                     </div>
-                  <div class="col-md-4 col-sm-6" onclick="getdata(6)" data-toggle="modal" data-target="#rules">
+                  <div class="col-md-4 col-sm-6" data-toggle="modal" data-target="#rules">
                         <div class="serviceBox">
                             <div class="service-icon withborder color9 hovicon effect-1 sub-a">
-                                <img src="images/icons/icon_10.png" alt="">
+                                <img src="{!!  URL::to('images/icons/icon_10.png') !!}" alt="">
                             </div>
                             <div class="service-content">
                                 <h3>Chess</h3>
@@ -175,7 +185,7 @@
                   <div class="col-md-4 col-sm-6" >
                         <div class="serviceBox">
                             <div class="service-icon withborder color10 hovicon effect-1 sub-a">
-                                <img src="images/icons/icon_11.png" alt="">
+                                <img src="{!!  URL::to('images/icons/icon_11.png') !!}" alt="">
                             </div>
                             <div class="service-content">
                                 <h3>Atheletics</h3>
@@ -218,7 +228,7 @@
 
             <div class="container">
                 <div class="section-title text-center">
-                    <h3>Meet The Devlopers.</h3>
+                    <h3>Meet The Developers.</h3>
                     <hr>
                   <div class="row">
                            <a target="_blank" href="http://www.facebook.com/kieterp" ><button type="button" class="btn btn-primary rounded">Team ERP</button>
@@ -232,10 +242,11 @@
     </body>
         @include('footer')
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.js"></script>
-  <script src="js/login.js"></script>
+  <script src="{!!  URL::to('js/jquery.min.js') !!}"></script>
+  <script src="{!!  URL::to('js/bootstrap.js') !!}"></script>
+  <script src="{!!  URL::to('js/login.js') !!}"></script>
 </body>
+
 <div id="rules" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
@@ -245,14 +256,20 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h3 class="modal-title">RULES</h3>
         </div>
-        <div class="modal-body" id="rule">
-       
+        <div class="modal-body" id="rule"> <p><b>odfevnofudn</b></p>
         </div>
+
+       <!--  <div class="modal-footer">
+          <button type="button" class="btn btn-default" >Register</button>
+        </div>
+ -->
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
   </div>
+  
+  
   
 </html>
