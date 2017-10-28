@@ -14,6 +14,9 @@
 Route::get('/', function () {
     return view('welcome');   
 	//// HOME PAGE
+
+    return view('welcome');   //// HOME PAGE
+
 });
 
 
