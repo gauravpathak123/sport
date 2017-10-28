@@ -387,7 +387,70 @@ echo $response->getStatusCode();
         }
     }
     public function complete(Request $request){
+            if(Auth::guest()) {
+            return Redirect('/');
+        }
+        else{
 
+            $prim_detail=DB::table('studentprimdetail')->where('Uni_Roll_No',Auth::user()->email)->orWhere('Lib_Card_No',Auth::user()->email)->get();
+		// echo json_encode($prim_detail);
+            $lib=$prim_detail[0]->Lib_Card_No;
+        
+            header("Pragma: no-cache");
+            header("Cache-Control: no-cache");
+            header("Expires: 0");
+           // $user=Auth::user()->id;
+            require_once("lib/config_paytm.php");
+            require_once("lib/encdec_paytm.php");
+            $paytmChecksum = "";
+            $paramList = array();
+            $isValidChecksum = "FALSE";
+            
+            if(!isset($_POST)){
+            	return view('message')->with('message','error')->with('error',false);
+            }
+            $paramList = $_POST;
+           // echo $paramList['ORDERID']." ".$lib;
+            $q_order=DB::table('order_details')->where('Order_Id',$paramList['ORDERID'])->where('User_Id',$lib)->get();
+            //var_dump($q_order[0]->Amount);
+           // echo json_encode($q_order);
+            $paytmChecksum = isset($_POST["CHECKSUMHASH"]) ? $_POST["CHECKSUMHASH"] : ""; //Sent by Paytm pg
+            $isValidChecksum = verifychecksum_e($paramList, PAYTM_MERCHANT_KEY, $paytmChecksum); //will return TRUE or FALSE string.
+            if($isValidChecksum == "TRUE") {
+                if ($_POST["STATUS"] == "TXN_SUCCESS") {
+                    if($_POST['TXNAMOUNT']>=$q_order[0]->Amount){
+                    
+                    
+                    	 $a="https://secure.paytm.in/oltp/HANDLER_INTERNAL/TXNSTATUS?JsonData={'MID':'MID','ORDERID':'".$paramList['ORDERID']."'}";
+		            $contents = file_get_contents($a); 
+		            $contents=json_decode($contents,true);
+		            
+		            
+		            if($contents["TXNAMOUNT"]>=$q_order[0]->Amount && $contents['STATUS']=="TXN_SUCCESS" )
+		            {   
+	                       DB::table('order_details')->where('Order_Id',$q_order[0]->Order_Id)->update(['Status'=>'PAID']);
+	                       $q_or=DB::table('order_details')->where('Order_Id',$q_order[0]->Order_Id)->select('Reg_Id')->get();
+	                       DB::table('ind_reg')->where('Reg_Id',$q_or[0]->Reg_Id)->update(['Paid_Status'=>'Y']);
+	                      return view('message')->with('message','Payment Successful')->with('error',false);
+	                      
+	                     }
+	                     else{
+	                     	return view('message')->with('message','Error4')->with('error',false);
+	                     }
+                    }
+                    else{
+                        return view('message')->with('message','Error1')->with('error',false);
+                    }
+                }
+                else{
+                    return view('message')->with('message','Error2')->with('error',false);
+                }
+            }
+            else{
+                return view('message')->with('message','Error3')->with('error',false);
+            }
+            
+        }
     }
 
     public function contact_us(Request $request){
