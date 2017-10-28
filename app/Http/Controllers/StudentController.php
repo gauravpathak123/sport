@@ -138,7 +138,10 @@ echo $response->getStatusCode();
     }
 
     public function grp_reg(Request $request){
-    	$input=$request->all();
+    	if(Auth::guest()){
+            return Redirect('/');
+        }
+	$input=$request->all();
 
     	echo json_encode($input['sub_id']);
         return view('student_grp_reg');
