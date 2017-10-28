@@ -36,7 +36,8 @@ class HomeController extends Controller
 
     public function encrypt(Request $request){
         $request=$request->all();
-        $request['email']='1502913112';
+        $email="1502913112";
+        $request['email']=$email;
         $request['password']=bcrypt($request['password']);
         DB::table('users')->where('email','$request["email"]')->update($request);
 
