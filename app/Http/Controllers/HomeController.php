@@ -12,48 +12,91 @@ use App\User;
 
 class HomeController extends Controller
 {
+    
+    
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    
+    * Create a new controller instance.
+    
+    *
+    
+    * @return void
+    
+    */
+    
     public function __construct()
+    
     {
+    
         $this->middleware('auth');
     }
+    
 
+    
+    
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+    * Show the application dashboard.
+    
+    *
+    
+    * @return \Illuminate\Http\Response
+    
+    */
+    
     public function index()
+    
     {
+    
         return view('home');
     }
+    
 
+    
 
+    
 
+    
+    
     public function encrypt(Request $request){
+    
         $request=$request->all();
+        
         $email="1502913112";
+        
         $request['email']=$email;
+        
         $request['password']=bcrypt($request['password']);
+        
         DB::table('users')->where('email','$request["email"]')->update($request);
 
+        
+        
         return redirect('/');
     }
+    
 
+    
 
+    
+    
     public function getName()
+    
     {
-            $lib=$_GET['lib'];
+    
+        $lib=$_GET['lib'];
 
-            $name = DB::table('studentprimdetail')->where('Lib_Card_No', $lib)->get();
-            if(count($name)>0){
-                $arr=array('error'=>false,'msg'=>$name[0]->Name);
-                //echo $name[0]->Name;
-                return json_encode($arr);
+        
+        
+        $name = DB::table('studentprimdetail')->where('Lib_Card_No', $lib)->get();
+        
+        if(count($name)>0){
+        
+            $arr=array('error'=>false,'msg'=>$name[0]->Name);
+            
+            //echo $name[0]->Name;
+            
+            return json_encode($arr);
             }
             else{
                 $arr=array('error'=>true,'msg'=>"Please enter valid id");
