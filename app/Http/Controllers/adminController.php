@@ -2,37 +2,69 @@
 
 namespace App\Http\Controllers;
 use Alert;
+
+
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
+
 use App\Http\Controllers\Controller;
+
 use Illuminate\Support\Facades\Validator; 
+
 use Illuminate\Support\Facades\Auth;
+
+
 
 // .........................SHREY...............................
 
+
+
 class adminController extends Controller
+
 {
 
+    
+    
     public function __construct()
+    
     {
+    
         $this->middleware('auth');
     }
+    
 
+    
+    
     public function getCaptainName()
+    
     {
-            $lib=$_GET['lib'];
+    
+        $lib=$_GET['lib'];
 
-            $name = DB::table('studentprimdetail')->where('Lib_Card_No', $lib)->get();
-            if(count($name)>0){
-                $arr=array('error'=>false,'msg'=>$name[0]->Name);
-                //echo $name[0]->Name;
-                return json_encode($arr);
-            }
-            else{
-                $arr=array('error'=>true,'msg'=>"Please enter valid id");
-                return json_encode($arr);
-            }
-           
+        
+        
+        $name = DB::table('studentprimdetail')->where('Lib_Card_No', $lib)->get();
+        
+        if(count($name)>0){
+        
+            $arr=array('error'=>false,'msg'=>$name[0]->Name);
+            
+            //echo $name[0]->Name;
+            
+            return json_encode($arr);
+            
+        }
+        
+        else{
+        
+            $arr=array('error'=>true,'msg'=>"Please enter valid id");
+            
+            return json_encode($arr);
+            
+        }
+        
+        
     }
 
 
