@@ -2,34 +2,62 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
+
 use Session;
+
 use Illuminate\Support\Facades\Redirect;
+
 use App\Http\Controllers\Input;
+
 //use GuzzleHttp\Client;
 
+
+
 class StudentController extends Controller
+
 {
 
-//     public function __construct()
+	
+//     p
+	ublic function __construct()
 // {
-//     $this->middleware('auth');
+		
+//     $this->mi
+		ddleware('auth');
 // }
+	
 
-    public function redirect(){
-             $client = new Client();
-    //     $res = $client->request('POST', 'http://www.kiet.edu', [
-    //     'form_params' => [
-    //         'client_id' => 'test_id',
-    //         'secret' => 'test_secret',
+	
+    publ
+	    ic function redirect(){
+            
+	    $client = new Client();
+    //     $
+	    res = $client->request('POST', 'http://www.kiet.edu', [
+    //     '
+		    form_params' => [
+    //         'clie
+		    nt_id' => 'test_id',
+    //         'secr
+		    et' => 'test_secret',
     //     ]
+    
+    
     // ]);
 
-    // $result= $res->getBody();
-     $response = $client->request('GET', 'http://github.com');
-echo $response->getStatusCode();
 
+
+// $result= $res->getBody();
+
+$response = $client->request('GET', 'http://github.com');
+
+		    echo $response->getStatusCode();
+
+		    
 
     //dd($result);
     }
